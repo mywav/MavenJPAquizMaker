@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.thevisualcommunicationguy.models.Quiz;
 import com.thevisualcommunicationguy.repositories.QuizRepository;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/api/v1/quizes")
 public class QuizesController {
@@ -50,6 +52,54 @@ public class QuizesController {
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK) 
 	public Quiz merge(@RequestBody Quiz quiz, @PathVariable("id") long id) {
+		if (quiz.getDateTaken() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET dateTaken = " +
+						"01-01-" + quiz.getDateTaken().getYear() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (quiz.getQuestion01() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET question01 = " +
+						quiz.getQuestion01() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (quiz.getQuestion02() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET question02 = " +
+						quiz.getQuestion02() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		if (quiz.getQuestion03() != null)
 			try {
 				Connection connection = dataSource.getConnection();
@@ -81,6 +131,135 @@ public class QuizesController {
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
+		
+		if (quiz.getQuestion05() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET question05 = " +
+						quiz.getQuestion05() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (quiz.getQuestion06() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET question06 = " +
+						quiz.getQuestion06() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (quiz.getQuestion07() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET question07 = " +
+						quiz.getQuestion07() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (quiz.getQuestion08() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET question08 = " +
+						quiz.getQuestion08() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (quiz.getQuestion09() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET question09 = " +
+						quiz.getQuestion09() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (quiz.getQuestion10() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET question10 = " +
+						quiz.getQuestion10() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+//		if (quiz.getUsername() != null)
+//			try {
+//				Connection connection = dataSource.getConnection();
+//				Statement statement = connection.createStatement();
+//				statement.executeUpdate(
+//						"UPDATE quiz SET username = " +
+//						quiz.getUsername() + " WHERE id = " +
+//						quiz.getId()
+//					);
+//				statement.close();
+//				connection.close();
+//			}
+//		catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
+		if (quiz.getNameofpaper() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET nameofpaper = " +
+						quiz.getNameofpaper() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return quiz;
 	}
 }

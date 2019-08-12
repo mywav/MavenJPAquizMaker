@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,9 +21,9 @@ public class Quiz {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	
+	//@Temporal(TemporalType.DATE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
-	@Temporal(TemporalType.DATE)
+	@Column(name = "dateTaken")	
 	private Date dateTaken;
 	
 	private Integer question01;
