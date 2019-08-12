@@ -3,6 +3,7 @@ package com.thevisualcommunicationguy.controllers;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -25,6 +26,8 @@ import com.thevisualcommunicationguy.repositories.QuizRepository;
 @RequestMapping("/api/v1/quizes")
 public class QuizesController {
 	
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
+	
 	@Autowired
 	private DataSource dataSource;
 
@@ -39,7 +42,21 @@ public class QuizesController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
 	public void create(@RequestBody Quiz quiz) {
+		if (quiz.getId() != null) {
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.execute(
+						"INSERT INTO quiz (id) VALUES ('" + quiz.getId() + "')"
+				);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+				e.printStackTrace();
+			}		
 		quizRepository.save(quiz);
+		}
 	}
 
 	@GetMapping("/{id}")
@@ -50,6 +67,21 @@ public class QuizesController {
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK) 
 	public Quiz merge(@RequestBody Quiz quiz, @PathVariable("id") long id) {
+		if (quiz.getDateTaken() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET date_taken = " +
+						simpleDateFormat.format(quiz.getDateTaken()) + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		if (quiz.getQuestion01() != null)
 			try {
@@ -211,6 +243,37 @@ public class QuizesController {
 			e.printStackTrace();
 		}
 		
+//		if (quiz.getUsername() != null)
+//			try {
+//				Connection connection = dataSource.getConnection();
+//				Statement statement = connection.createStatement();
+//				statement.executeUpdate(
+//						"UPDATE quiz SET username = " +
+//						quiz.getUsername() + " WHERE id = " +
+//						quiz.getId()
+//					);
+//				statement.close();
+//				connection.close();
+//			}
+//		catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
+		if (quiz.getNameofpaper() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET nameofpaper = " +
+						quiz.getNameofpaper() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return quiz;
 	}

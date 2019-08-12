@@ -14,7 +14,7 @@ public class QuizService {
 		this.em = em;
 	}
 	
-	public Quiz createQuiz(Long id, String username, String nameofpaper, Date dateTaken,
+	public Quiz createQuiz(Long id, String username, String nameofpaper, Date date_taken,
 			Integer question01, Integer question02, Integer question03, Integer question04,
 			Integer question05, Integer question06, Integer question07, Integer question08, 
 			Integer question09, Integer question10) {
@@ -22,7 +22,7 @@ public class QuizService {
 	quiz.setId(id);
 	quiz.setUsername(username);
 	quiz.setNameofpaper(nameofpaper);
-	quiz.setDateTaken(dateTaken);
+	quiz.setDateTaken(date_taken);
 	quiz.setQuestion01(question01);
 	quiz.setQuestion02(question02);
 	quiz.setQuestion03(question03);

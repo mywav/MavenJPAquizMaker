@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -22,12 +20,12 @@ public class Quiz {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	
+
+	// @Temporal(TemporalType.DATE)
+	@Column(name = "date_taken")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
-	@Temporal(TemporalType.DATE)
-	private Date dateTaken;
-	
+	private Date date_taken;
+
 	private Integer question01;
 	private Integer question02;
 	private Integer question03;
@@ -38,11 +36,11 @@ public class Quiz {
 	private Integer question08;
 	private Integer question09;
 	private Integer question10;
-	
-	private String username;	
-	
-	private String nameofpaper;	
-	
+
+	private String username;
+
+	private String nameofpaper;
+
 	public String getUsername() {
 		return username;
 	}
@@ -50,8 +48,7 @@ public class Quiz {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
+
 	public String getNameofpaper() {
 		return nameofpaper;
 	}
@@ -59,7 +56,7 @@ public class Quiz {
 	public void setNameofpaper(String nameofpaper) {
 		this.nameofpaper = nameofpaper;
 	}
-	
+
 	public Integer getQuestion01() {
 		return question01;
 	}
@@ -138,14 +135,14 @@ public class Quiz {
 
 	public void setQuestion10(Integer question10) {
 		this.question10 = question10;
-	}	
-
-	public Date getDateTaken() {
-		return dateTaken;
 	}
 
-	public void setDateTaken(Date dateTaken) {
-		this.dateTaken = dateTaken;
+	public Date getDateTaken() {
+		return date_taken;
+	}
+
+	public void setDateTaken(Date date_taken) {
+		this.date_taken = date_taken;
 	}
 
 	public Long getId() {
