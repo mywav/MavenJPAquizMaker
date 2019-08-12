@@ -24,9 +24,7 @@ import com.thevisualcommunicationguy.repositories.QuizRepository;
 
 @RestController
 @RequestMapping("/api/v1/quizes")
-public class QuizesController {
-	
-	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
+public class QuizesController {	
 	
 	@Autowired
 	private DataSource dataSource;
@@ -67,17 +65,19 @@ public class QuizesController {
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK) 
 	public Quiz merge(@RequestBody Quiz quiz, @PathVariable("id") long id) {
+		
 		if (quiz.getDateTaken() != null)
 			try {
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
 				Connection connection = dataSource.getConnection();
 				Statement statement = connection.createStatement();
 				statement.executeUpdate(
-						"UPDATE quiz SET date_taken = " +
-						simpleDateFormat.format(quiz.getDateTaken()) + " WHERE id = " +
+						"UPDATE quiz SET date_taken = " + simpleDateFormat.format(quiz.getDateTaken()) + " WHERE id = " +
 						quiz.getId()
 					);
 				statement.close();
 				connection.close();
+				quizRepository.save(quiz);
 			}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -243,21 +243,21 @@ public class QuizesController {
 			e.printStackTrace();
 		}
 		
-//		if (quiz.getUsername() != null)
-//			try {
-//				Connection connection = dataSource.getConnection();
-//				Statement statement = connection.createStatement();
-//				statement.executeUpdate(
-//						"UPDATE quiz SET username = " +
-//						quiz.getUsername() + " WHERE id = " +
-//						quiz.getId()
-//					);
-//				statement.close();
-//				connection.close();
-//			}
-//		catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+		if (quiz.getUsername() != null)
+			try {
+				Connection connection = dataSource.getConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(
+						"UPDATE quiz SET username = " +
+						quiz.getUsername().toString() + " WHERE id = " +
+						quiz.getId()
+					);
+				statement.close();
+				connection.close();
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		if (quiz.getNameofpaper() != null)
 			try {
@@ -265,7 +265,7 @@ public class QuizesController {
 				Statement statement = connection.createStatement();
 				statement.executeUpdate(
 						"UPDATE quiz SET nameofpaper = " +
-						quiz.getNameofpaper() + " WHERE id = " +
+						quiz.getNameofpaper().toString() + " WHERE id = " +
 						quiz.getId()
 					);
 				statement.close();
